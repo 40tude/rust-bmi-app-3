@@ -8,56 +8,56 @@ The BMI Calculator is a full-stack web application with a Rust backend and vanil
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        CLIENT (Browser)                      │
-│                                                              │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              HTML + CSS + JavaScript               │    │
-│  │                                                     │    │
-│  │  • Form inputs (weight, height)                   │    │
-│  │  • Calculate button                                │    │
-│  │  • Result display                                  │    │
-│  │  • Error handling                                  │    │
-│  └────────────────────────────────────────────────────┘    │
-│                            │                                 │
-│                            │ HTTP/JSON                       │
-└────────────────────────────┼─────────────────────────────────┘
+│                        CLIENT (Browser)                     │
+│                                                             │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              HTML + CSS + JavaScript               │     │
+│  │                                                    │     │
+│  │  • Form inputs (weight, height)                    │     │
+│  │  • Calculate button                                │     │
+│  │  • Result display                                  │     │
+│  │  • Error handling                                  │     │
+│  └────────────────────────────────────────────────────┘     │
+│                            │                                │
+│                            │ HTTP/JSON                      │
+└────────────────────────────┼────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    SERVER (Rust + Axum)                     │
-│                                                              │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │                  Axum Router                       │    │
-│  │                                                     │    │
-│  │  GET  /          ──▶  root_handler()              │    │
-│  │  POST /api/calculate ──▶ calculate_bmi_handler()  │    │
-│  └────────────────────────────────────────────────────┘    │
-│                            │                                 │
-│                            ▼                                 │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              Business Logic Layer                  │    │
-│  │                                                     │    │
-│  │  • validate_input()                                │    │
-│  │  • calculate_bmi()                                 │    │
-│  │  • categorize_bmi()                                │    │
-│  └────────────────────────────────────────────────────┘    │
-│                            │                                 │
-│                            ▼                                 │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              Middleware Stack                      │    │
-│  │                                                     │    │
-│  │  • Tower CORS                                      │    │
-│  │  • Tracing (structured logging)                    │    │
-│  └────────────────────────────────────────────────────┘    │
-│                            │                                 │
-│                            ▼                                 │
-│  ┌────────────────────────────────────────────────────┐    │
-│  │              Tokio Async Runtime                   │    │
-│  │                                                     │    │
-│  │  • TCP listener (0.0.0.0:PORT)                    │    │
-│  │  • Async task scheduling                           │    │
-│  │  • Concurrent request handling                     │    │
-│  └────────────────────────────────────────────────────┘    │
+│                                                             │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │                  Axum Router                       │     │
+│  │                                                    │     │
+│  │  GET  /          ──>  root_handler()               │     │
+│  │  POST /api/calculate ──> calculate_bmi_handler()   │     │
+│  └────────────────────────────────────────────────────┘     │
+│                            │                                │
+│                            ▼                                │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              Business Logic Layer                  │     │
+│  │                                                    │     │
+│  │  • validate_input()                                │     │
+│  │  • calculate_bmi()                                 │     │
+│  │  • categorize_bmi()                                │     │
+│  └────────────────────────────────────────────────────┘     │
+│                            │                                │
+│                            ▼                                │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              Middleware Stack                      │     │
+│  │                                                    │     │
+│  │  • Tower CORS                                      │     │
+│  │  • Tracing (structured logging)                    │     │
+│  └────────────────────────────────────────────────────┘     │
+│                            │                                │
+│                            ▼                                │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │              Tokio Async Runtime                   │     │
+│  │                                                    │     │
+│  │  • TCP listener (0.0.0.0:PORT)                     │     │
+│  │  • Async task scheduling                           │     │
+│  │  • Concurrent request handling                     │     │
+│  └────────────────────────────────────────────────────┘     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -69,38 +69,38 @@ The BMI Calculator is a full-stack web application with a Rust backend and vanil
 ┌─────────────────────────────────────┐
 │         index.html (embedded)       │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │        <head>                 │ │
-│  │  • Meta tags                  │ │
-│  │  • <style> (CSS)              │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │        <head>                 │  │
+│  │  • Meta tags                  │  │
+│  │  • <style> (CSS)              │  │
+│  └───────────────────────────────┘  │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │        <body>                 │ │
-│  │                               │ │
-│  │  ┌─────────────────────────┐ │ │
-│  │  │   Container             │ │ │
-│  │  │  • Title                │ │ │
-│  │  │  • Subtitle             │ │ │
-│  │  │  • Form                 │ │ │
-│  │  │    - Weight input       │ │ │
-│  │  │    - Height input       │ │ │
-│  │  │    - Submit button      │ │ │
-│  │  │  • Error display        │ │ │
-│  │  │  • Result display       │ │ │
-│  │  │    - BMI value          │ │ │
-│  │  │    - Category           │ │ │
-│  │  │    - Reference guide    │ │ │
-│  │  └─────────────────────────┘ │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │        <body>                 │  │
+│  │                               │  │
+│  │  ┌─────────────────────────┐  │  │
+│  │  │   Container             │  │  │
+│  │  │  • Title                │  │  │
+│  │  │  • Subtitle             │  │  │
+│  │  │  • Form                 │  │  │
+│  │  │    - Weight input       │  │  │
+│  │  │    - Height input       │  │  │
+│  │  │    - Submit button      │  │  │
+│  │  │  • Error display        │  │  │
+│  │  │  • Result display       │  │  │
+│  │  │    - BMI value          │  │  │
+│  │  │    - Category           │  │  │
+│  │  │    - Reference guide    │  │  │
+│  │  └─────────────────────────┘  │  │
+│  └───────────────────────────────┘  │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │       <script>                │ │
-│  │  • Form submit handler        │ │
-│  │  • Fetch API call             │ │
-│  │  • Response rendering         │ │
-│  │  • Error handling             │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │       <script>                │  │
+│  │  • Form submit handler        │  │
+│  │  • Fetch API call             │  │
+│  │  • Response rendering         │  │
+│  │  • Error handling             │  │
+│  └───────────────────────────────┘  │
 └─────────────────────────────────────┘
 ```
 
@@ -110,44 +110,44 @@ The BMI Calculator is a full-stack web application with a Rust backend and vanil
 ┌─────────────────────────────────────────────────────┐
 │                    main.rs                          │
 │                                                     │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  Global Allocator (mimalloc)                  │ │
-│  │  #[global_allocator]                          │ │
-│  │  static GLOBAL: MiMalloc = MiMalloc;          │ │
-│  └───────────────────────────────────────────────┘ │
-│                      │                               │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  Data Structures                              │ │
-│  │  • struct BmiRequest { weight_kg, height_m }  │ │
-│  │  • struct BmiResponse { bmi, category }       │ │
-│  └───────────────────────────────────────────────┘ │
-│                      │                               │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  Core Functions                               │ │
-│  │  • calculate_bmi(weight, height) -> f64       │ │
-│  │  • categorize_bmi(bmi) -> &str                │ │
-│  └───────────────────────────────────────────────┘ │
-│                      │                               │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  HTTP Handlers (async)                        │ │
-│  │  • root_handler() -> Html                     │ │
-│  │  • calculate_bmi_handler(Json) -> Result      │ │
-│  └───────────────────────────────────────────────┘ │
-│                      │                               │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  Main Function                                │ │
-│  │  • Initialize tracing                         │ │
-│  │  • Build router                               │ │
-│  │  • Configure middleware                       │ │
-│  │  • Start TCP listener                         │ │
-│  │  • Serve app                                  │ │
-│  └───────────────────────────────────────────────┘ │
-│                      │                               │
-│  ┌───────────────────────────────────────────────┐ │
-│  │  Tests Module                                 │ │
-│  │  • test_calculate_bmi()                       │ │
-│  │  • test_categorize_bmi()                      │ │
-│  └───────────────────────────────────────────────┘ │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  Global Allocator (mimalloc)                  │  │
+│  │  #[global_allocator]                          │  │
+│  │  static GLOBAL: MiMalloc = MiMalloc;          │  │
+│  └───────────────────────────────────────────────┘  │
+│                      │                              │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  Data Structures                              │  │
+│  │  • struct BmiRequest { weight_kg, height_m }  │  │
+│  │  • struct BmiResponse { bmi, category }       │  │
+│  └───────────────────────────────────────────────┘  │
+│                      │                              │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  Core Functions                               │  │
+│  │  • calculate_bmi(weight, height) -> f64       │  │
+│  │  • categorize_bmi(bmi) -> &str                │  │
+│  └───────────────────────────────────────────────┘  │
+│                      │                              │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  HTTP Handlers (async)                        │  │
+│  │  • root_handler() -> Html                     │  │
+│  │  • calculate_bmi_handler(Json) -> Result      │  │
+│  └───────────────────────────────────────────────┘  │
+│                      │                              │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  Main Function                                │  │
+│  │  • Initialize tracing                         │  │
+│  │  • Build router                               │  │
+│  │  • Configure middleware                       │  │
+│  │  • Start TCP listener                         │  │
+│  │  • Serve app                                  │  │
+│  └───────────────────────────────────────────────┘  │
+│                      │                              │
+│  ┌───────────────────────────────────────────────┐  │
+│  │  Tests Module                                 │  │
+│  │  • test_calculate_bmi()                       │  │
+│  │  • test_categorize_bmi()                      │  │
+│  └───────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -231,7 +231,7 @@ JavaScript updates DOM
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   User       │────▶│   Browser    │────▶│   Network    │
+│   User       │────>│   Browser    │────>│   Network    │
 │   Input      │     │   Form       │     │   Request    │
 └──────────────┘     └──────────────┘     └──────────────┘
   weight: 70kg                                    │
@@ -277,7 +277,7 @@ JavaScript updates DOM
                                                   │
                                                   ▼
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   User       │◀────│   Browser    │◀────│   Network    │
+│   User       │<────│   Browser    │<────│   Network    │
 │   Sees       │     │   Updates    │     │   Response   │
 └──────────────┘     └──────────────┘     └──────────────┘
   BMI: 22.9                                  JSON payload
@@ -289,7 +289,7 @@ JavaScript updates DOM
 ```
 ┌─────────────────────────────────────────┐
 │           Invalid Input                 │
-│  (weight ≤ 0 or height ≤ 0)            │
+│  (weight ≤ 0 or height ≤ 0)             │
 └─────────────────┬───────────────────────┘
                   │
                   ▼
@@ -300,14 +300,14 @@ JavaScript updates DOM
                   │
                   ▼
         ┌─────────────────────┐
-        │  Return              │
-        │  Err(String)         │
+        │  Return             │
+        │  Err(String)        │
         └─────────────────────┘
                   │
                   ▼
         ┌─────────────────────┐
-        │  HTTP 400            │
-        │  Bad Request         │
+        │  HTTP 400           │
+        │  Bad Request        │
         └─────────────────────┘
                   │
                   ▼
@@ -416,15 +416,15 @@ Event format:
 ┌─────────────────────────────────────────────────────┐
 │               Dyno (Container)                      │
 │                                                     │
-│  ┌───────────────────────────────────────────────┐ │
-│  │         bmi_calculator binary                 │ │
-│  │  • Binds to 0.0.0.0:$PORT                    │ │
-│  │  • Handles requests                           │ │
-│  └───────────────────────────────────────────────┘ │
+│  ┌───────────────────────────────────────────────┐  │
+│  │         bmi_calculator binary                 │  │
+│  │  • Binds to 0.0.0.0:$PORT                     │  │
+│  │  • Handles requests                           │  │
+│  └───────────────────────────────────────────────┘  │
 │                                                     │
 │  Environment:                                       │
-│  • PORT=5432 (or dynamic)                          │
-│  • RUST_LOG=info                                   │
+│  • PORT=5432 (or dynamic)                           │
+│  • RUST_LOG=info                                    │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -436,25 +436,25 @@ Event format:
 ┌─────────────────────────────────────┐
 │       Process Memory (~10MB)        │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │    Binary Code (~8MB)         │ │
-│  │  • Rust runtime               │ │
-│  │  • Tokio runtime              │ │
-│  │  • Axum framework             │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │    Binary Code (~8MB)         │  │
+│  │  • Rust runtime               │  │
+│  │  • Tokio runtime              │  │
+│  │  • Axum framework             │  │
+│  └───────────────────────────────┘  │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │    Heap (~1MB)                │ │
-│  │  • Request buffers            │ │
-│  │  • JSON parsing               │ │
-│  │  • Managed by mimalloc        │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │    Heap (~1MB)                │  │
+│  │  • Request buffers            │  │
+│  │  • JSON parsing               │  │
+│  │  • Managed by mimalloc        │  │
+│  └───────────────────────────────┘  │
 │                                     │
-│  ┌───────────────────────────────┐ │
-│  │    Stack (~1MB)               │ │
-│  │  • Tokio tasks                │ │
-│  │  • Function frames            │ │
-│  └───────────────────────────────┘ │
+│  ┌───────────────────────────────┐  │
+│  │    Stack (~1MB)               │  │
+│  │  • Tokio tasks                │  │
+│  │  • Function frames            │  │
+│  └───────────────────────────────┘  │
 └─────────────────────────────────────┘
 ```
 
@@ -488,32 +488,32 @@ Thread Pool:
 ┌─────────────────────────────────────────┐
 │           Security Layers               │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Transport Security               │ │
-│  │  • HTTPS (Heroku provides)        │ │
-│  │  • TLS 1.2+                       │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Transport Security               │  │
+│  │  • HTTPS (Heroku provides)        │  │
+│  │  • TLS 1.2+                       │  │
+│  └───────────────────────────────────┘  │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Input Validation                 │ │
-│  │  • Type checking (Serde)          │ │
-│  │  • Range validation               │ │
-│  │  • Positive number checks         │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Input Validation                 │  │
+│  │  • Type checking (Serde)          │  │
+│  │  • Range validation               │  │
+│  │  • Positive number checks         │  │
+│  └───────────────────────────────────┘  │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  CORS Policy                      │ │
-│  │  • Configurable origins           │ │
-│  │  • Permissive in dev              │ │
-│  │  • Restrictive in prod            │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  CORS Policy                      │  │
+│  │  • Configurable origins           │  │
+│  │  • Permissive in dev              │  │
+│  │  • Restrictive in prod            │  │
+│  └───────────────────────────────────┘  │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Error Handling                   │ │
-│  │  • No stack traces exposed        │ │
-│  │  • User-friendly messages         │ │
-│  │  • Structured logging             │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Error Handling                   │  │
+│  │  • No stack traces exposed        │  │
+│  │  • User-friendly messages         │  │
+│  │  • Structured logging             │  │
+│  └───────────────────────────────────┘  │
 └─────────────────────────────────────────┘
 ```
 

@@ -108,8 +108,8 @@ heroku open
     # Use native CPU optimizations for all builds
     rustflags = ["-C", "target-cpu=native"]
     ```
-Avant `-rwx------ 1 u10866 dyno 2964152 Dec  2 21:51 bmi_calculator`
-Après
+Avant `-rwx------ 1 u10866 dyno 2_964_152 Dec  2 21:51 bmi_calculator`
+Après `-rwx------ 1 u38968 dyno 2_342_824 Dec  2 22:07 bmi_calculator`
 
 ## Troubleshooting
 
