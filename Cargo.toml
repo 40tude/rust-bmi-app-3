@@ -1,0 +1,40 @@
+[package]
+name = "bmi_calculator"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "BMI calculator web app with Axum backend and Leptos frontend"
+license = "MIT"
+
+[dependencies]
+# Web framework and async runtime
+axum = "0.7"
+tokio = { version = "1", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "trace", "cors"] }
+
+# Frontend framework
+leptos = { version = "0.6", features = ["csr"] }
+leptos_axum = "0.6"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling (application-level using anyhow as per M-APP-ERROR)
+anyhow = "1.0"
+
+# Logging and tracing (following M-LOG-STRUCTURED)
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Allocator (following M-MIMALLOC-APPS)
+mimalloc = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+[profile.bench]
+debug = 1
