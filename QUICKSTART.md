@@ -79,12 +79,37 @@ heroku login
 # Create app
 heroku create your-bmi-app
 
+# Entre temps j'ai merdé est supprimé le .git car j'arrivais pas à commiter sur github
+heroku git:remote -a rust-bmi-app-3
+git remote -v
+
+
+heroku create rust-bmi-app-3 --buildpack emk/rust
+
+# Authentification
+heroku auth:token
+# copier HRKU-AAJ5fx....
+
 # Deploy
 git push heroku main
 
 # Open
 heroku open
 ```
+
+
+# Add slugignore
+1. Connect via console on Heroku
+    ``heroku run bash --app rust-bmi-app-3``
+1. Review Cargo.toml/[profile.release]
+1. Create `.cargo/config.toml`
+    ```toml
+    [build]
+    # Use native CPU optimizations for all builds
+    rustflags = ["-C", "target-cpu=native"]
+    ```
+Avant `-rwx------ 1 u10866 dyno 2964152 Dec  2 21:51 bmi_calculator`
+Après
 
 ## Troubleshooting
 

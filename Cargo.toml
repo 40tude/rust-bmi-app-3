@@ -31,10 +31,13 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 # Allocator (following M-MIMALLOC-APPS)
 mimalloc = "0.1"
 
+# See also .cargo/config.toml
 [profile.release]
 opt-level = 3
 lto = true
 codegen-units = 1
+strip = true      # Remove debug symbols
+panic = "abort"   # Reduce runtime size
 
 [profile.bench]
 debug = 1

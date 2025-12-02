@@ -1,0 +1,37 @@
+# Slugignore - files to exclude from Heroku slug
+
+# Documentation (not needed at runtime)
+*.md
+ARCHITECTURE.md
+DEPLOYMENT.md
+PROJECT_SUMMARY.md
+QUICKSTART.md
+README.md
+
+# Development files
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Rust development artifacts
+target/debug/
+target/doc/
+**/*.rs.bk
+*.pdb
+
+# Test files
+tests/
+benches/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Misc
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
