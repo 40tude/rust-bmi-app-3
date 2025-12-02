@@ -34,18 +34,6 @@ Example:
 ## API Test
 
 ### Using curl
-
-```bash
-curl -X POST http://localhost:3000/api/calculate \
-  -H "Content-Type: application/json" \
-  -d '{"weight_kg": 70.0, "height_m": 1.75}'
-```
-
-Expected response:
-```json
-{"bmi":22.857142857142858,"category":"Normal weight"}
-```
-
 ### Using PowerShell (Windows)
 
 ```powershell
@@ -54,6 +42,29 @@ Invoke-RestMethod -Uri http://localhost:3000/api/calculate `
   -ContentType "application/json" `
   -Body '{"weight_kg": 70.0, "height_m": 1.75}'
 ```
+
+
+Expected response:
+```
+bmi category
+  --- --------
+22,86 Normal weight
+```
+
+
+```bash
+curl -X POST http://localhost:3000/api/calculate \
+  -H "Content-Type: application/json" \
+  -d '{"weight_kg": 70.0, "height_m": 1.75}'
+```
+
+Expected response:
+
+```json
+{"bmi":22.857142857142858,"category":"Normal weight"}
+```
+
+
 
 ## Run Tests
 
@@ -70,6 +81,9 @@ test tests::test_categorize_bmi ... ok
 test result: ok. 2 passed
 ```
 
+
+
+
 ## Deploy to Heroku (5 minutes)
 
 ```bash
@@ -77,7 +91,7 @@ test result: ok. 2 passed
 heroku login
 
 # Create app
-heroku create your-bmi-app
+heroku create rust-bmi-app-3
 
 # Entre temps j'ai merdé est supprimé le .git car j'arrivais pas à commiter sur github
 heroku git:remote -a rust-bmi-app-3
@@ -98,7 +112,10 @@ heroku open
 ```
 
 
-# Add slugignore
+## Finalize
+
+**Add slugignore**
+**Strip symbols in release**
 1. Connect via console on Heroku
     ``heroku run bash --app rust-bmi-app-3``
 1. Review Cargo.toml/[profile.release]
@@ -108,8 +125,11 @@ heroku open
     # Use native CPU optimizations for all builds
     rustflags = ["-C", "target-cpu=native"]
     ```
-Avant `-rwx------ 1 u10866 dyno 2_964_152 Dec  2 21:51 bmi_calculator`
-Après `-rwx------ 1 u38968 dyno 2_342_824 Dec  2 22:07 bmi_calculator`
+Before `-rwx------ 1 u10866 dyno 2_964_152 Dec  2 21:51 bmi_calculator`
+After  `-rwx------ 1 u38968 dyno 2_342_824 Dec  2 22:07 bmi_calculator`
+
+
+
 
 ## Troubleshooting
 
@@ -136,9 +156,13 @@ cargo run -- --help
 bmi_calculator/
 ├── src/main.rs          # Main application code
 ├── Cargo.toml           # Dependencies
+├───docs
+│       00_techno_overview.md
+│       01_QUICKSTART.md # This file
+│       02_DEPLOYMENT.md # Heroku deployment guide
+│       03_PROJECT_SUMMARY.md
+│       04_ARCHITECTURE.md
 ├── README.md            # Full documentation
-├── DEPLOYMENT.md        # Heroku deployment guide
-└── QUICKSTART.md        # This file
 ```
 
 ## Next Steps
@@ -167,7 +191,5 @@ bmi_calculator/
 ## License
 
 MIT - Free to use and modify
-
----
 
 **That's it!** You now have a working BMI calculator. Enjoy! 🎉
